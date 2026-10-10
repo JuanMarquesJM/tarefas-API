@@ -2,6 +2,7 @@ package com.juan.tarefas.service;
 
 import com.juan.tarefas.dto.TarefaRequestDTO;
 import com.juan.tarefas.dto.TarefaResponseDTO;
+import com.juan.tarefas.exception.TarefaNaoEncontradException;
 import com.juan.tarefas.mapper.TarefaMapper;
 import com.juan.tarefas.model.TarefaModel;
 import com.juan.tarefas.repository.TarefaRespository;
@@ -15,8 +16,8 @@ public class TarefaService {
     private final TarefaRespository tarefaRespository;
     private final TarefaMapper tarefaMapper;
 
-    public TarefaService(TarefaRespository tarefaRespository, TarefaMapper tarefaMapper) {
-        this.tarefaRespository = tarefaRespository;
+    public TarefaService(TarefaRespository tarefaRepository, TarefaMapper tarefaMapper) {
+        this.tarefaRespository = tarefaRepository;
         this.tarefaMapper = tarefaMapper;
     }
 
@@ -34,14 +35,14 @@ public class TarefaService {
 
     public TarefaResponseDTO concluirTarefa(Long id) {
         TarefaModel tarefa = tarefaRespository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Tarefa não encontrada"));
+                .orElseThrow(() -> new TarefaNaoEncontradException (id));
         tarefa.setConcluido(true);
         return tarefaMapper.toResponseDTO(tarefaRespository.save(tarefa));
     }
 
     public TarefaResponseDTO encontrarTarefa(Long id) {
         TarefaModel tarefa = tarefaRespository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Tarefa não encontrada"));
+                .orElseThrow(() -> new TarefaNaoEncontradException(id));
         return tarefaMapper.toResponseDTO(tarefa);
     }
 
