@@ -3,6 +3,7 @@ package com.juan.tarefas.controller;
 import com.juan.tarefas.dto.TarefaRequestDTO;
 import com.juan.tarefas.dto.TarefaResponseDTO;
 import com.juan.tarefas.service.TarefaService;
+import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -19,11 +20,11 @@ public class TarefaController {
     }
 
     @PostMapping
-    public ResponseEntity<TarefaResponseDTO> criarTarefa(@RequestBody TarefaRequestDTO tarefaRequestDTO) {
+    public ResponseEntity<TarefaResponseDTO> criarTarefa(@RequestBody @Valid TarefaRequestDTO tarefaRequestDTO) {
         return ResponseEntity.status(201).body(tarefaService.criarTarefa(tarefaRequestDTO));
     }
 
-    @GetMapping("/todastarefas")
+    @GetMapping()
     public ResponseEntity<List<TarefaResponseDTO>> listarTarefa() {
         return ResponseEntity.ok(tarefaService.listarTarefas());
     }
