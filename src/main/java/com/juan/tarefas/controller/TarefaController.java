@@ -24,7 +24,7 @@ public class TarefaController {
         return ResponseEntity.status(201).body(tarefaService.criarTarefa(tarefaRequestDTO));
     }
 
-    @GetMapping()
+    @GetMapping
     public ResponseEntity<List<TarefaResponseDTO>> listarTarefa() {
         return ResponseEntity.ok(tarefaService.listarTarefas());
     }

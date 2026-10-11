@@ -47,7 +47,9 @@ public class TarefaService {
     }
 
     public void deletarTarefa(Long id) {
-        tarefaRespository.deleteById(id);
+        TarefaModel tarefa = tarefaRespository.findById(id)
+                .orElseThrow(() -> new TarefaNaoEncontradaException(id));
+        tarefaRespository.delete(tarefa);
     }
 
 }
