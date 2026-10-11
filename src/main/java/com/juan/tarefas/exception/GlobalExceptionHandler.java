@@ -8,8 +8,8 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 
 @RestControllerAdvice
 public class GlobalExceptionHandler {
-    @ExceptionHandler(TarefaNaoEncontradException.class)
-    public ResponseEntity<String> handleTarefaNaoEncontrada(TarefaNaoEncontradException ex) {
+    @ExceptionHandler(TarefaNaoEncontradaException.class)
+    public ResponseEntity<String> handleTarefaNaoEncontrada(TarefaNaoEncontradaException ex) {
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(ex.getMessage());
     }
 
